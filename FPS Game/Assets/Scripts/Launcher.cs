@@ -8,8 +8,9 @@ using System.Linq;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
-	public static Launcher Instance;
+	public static Launcher Instance; // Singleton of the Photon Launcher
 
+    // SerializeField makes private variables visible in the inspector
 	[SerializeField] TMP_InputField roomNameInputField;
 	[SerializeField] TMP_Text errorText;
 	[SerializeField] TMP_Text roomNameText;
@@ -46,18 +47,22 @@ public class Launcher : MonoBehaviourPunCallbacks
 
 	public void CreateRoom()
 	{
-		if(string.IsNullOrEmpty(roomNameInputField.text))
+		if(string.IsNullOrEmpty(roomNameInputField.text)) // If there is no text in the input field of the room name we want to create
 		{
-			return;
+			return; // Do nothing
 		}
-		PhotonNetwork.CreateRoom(roomNameInputField.text);
-		MenuManager.Instance.OpenMenu("loading");
+
+        // else
+		PhotonNetwork.CreateRoom(roomNameInputField.text); // Create a room with the text in parameter
+		MenuManager.Instance.OpenMenu("loading"); // Show the loading menu/message
+
+        // When creating a room is done, OnJoinedRoom() will automatically trigger
 	}
 
 	public override void OnJoinedRoom()
 	{
-		MenuManager.Instance.OpenMenu("room");
-		roomNameText.text = PhotonNetwork.CurrentRoom.Name;
+		MenuManager.Instance.OpenMenu("room"); // Show the "room" menu
+		roomNameText.text = PhotonNetwork.CurrentRoom.Name; // Change the name of the room to the one given 
 
 		Player[] players = PhotonNetwork.PlayerList;
 

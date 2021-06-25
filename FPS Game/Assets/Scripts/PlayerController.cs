@@ -27,12 +27,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
 	Rigidbody rb;
 
-	PhotonView PV;
+	public PhotonView PV;
 
 	const float maxHealth = 100f;
 	float currentHealth = maxHealth;
 
 	PlayerManager playerManager;
+    public ObjectPool BulletPool;
 
 	void Awake()
 	{
@@ -44,12 +45,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
 	void Start()
 	{
+        BulletPool = GameObject.FindGameObjectWithTag("BulletPool").GetComponent<ObjectPool>();
 		if(PV.IsMine)
 		{
-			EquipItem(0);
+            Debug.Log("My PV: " + PV.ViewID);
+            EquipItem(0);
 		}
 		else
 		{
+            Debug.Log("Is not mine PV: " + PV.ViewID);
 			Destroy(GetComponentInChildren<Camera>().gameObject);
 			Destroy(rb);
 			Destroy(ui);

@@ -13,9 +13,9 @@ public class MenuManager : MonoBehaviour
 		Instance = this;
 	}
 
-	public void OpenMenu(string menuName)
+	public void OpenMenu(string menuName) // Open a menu GO using the name from its Menu script
 	{
-		for(int i = 0; i < menus.Length; i++)
+        for (int i = 0; i < menus.Length; i++)
 		{
 			if(menus[i].menuName == menuName)
 			{
@@ -28,8 +28,9 @@ public class MenuManager : MonoBehaviour
 		}
 	}
 
-	public void OpenMenu(Menu menu)
+	public void OpenMenu(Menu menu) // Open a menu GO using the Menu script itself
 	{
+        // Close all menus first
 		for(int i = 0; i < menus.Length; i++)
 		{
 			if(menus[i].open)
@@ -37,7 +38,7 @@ public class MenuManager : MonoBehaviour
 				CloseMenu(menus[i]);
 			}
 		}
-		menu.Open();
+		menu.Open(); // Then open the one we need
 	}
 
 	public void CloseMenu(Menu menu)

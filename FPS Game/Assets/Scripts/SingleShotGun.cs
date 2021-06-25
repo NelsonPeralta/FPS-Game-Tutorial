@@ -8,6 +8,7 @@ public class SingleShotGun : Gun
 	[SerializeField] Camera cam;
 
 	PhotonView PV;
+    public PlayerController playerController;
 
 	void Awake()
 	{
@@ -25,9 +26,11 @@ public class SingleShotGun : Gun
 		ray.origin = cam.transform.position;
 		if(Physics.Raycast(ray, out RaycastHit hit))
 		{
-			hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
-			PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+			//hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
+			//PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
 		}
+            PV.RPC("RPC_Shoot_Projectile", RpcTarget.All);
+        //RPC_Shoot_Projectile();
 	}
 
 	[PunRPC]
@@ -41,4 +44,15 @@ public class SingleShotGun : Gun
 			bulletImpactObj.transform.SetParent(colliders[0].transform);
 		}
 	}
+
+    [PunRPC]
+    void RPC_Shoot_Projectile()
+    {
+        Debug.Log("Spawning Projectile Bullet");
+        GameObject bullet = playerController.BulletPool.SpawnPooledGameObject();
+
+        bullet.transform.position = gameObject.transform.position;
+        bullet.transform.rotation = gameObject.transform.rotation;
+        bullet.SetActive(true);
+    }
 }

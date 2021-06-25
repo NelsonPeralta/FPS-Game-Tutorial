@@ -157,6 +157,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6455173011235069044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,6 +374,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -493,6 +495,8 @@ MonoBehaviour:
   items:
   - {fileID: 6732414030161505931}
   - {fileID: 3968076902418886796}
+  PV: {fileID: 0}
+  BulletPool: {fileID: 0}
 --- !u!1 &2872424139362127188
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +611,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -686,7 +691,10 @@ MonoBehaviour:
   itemGameObject: {fileID: 2872424139362127188}
   bulletImpactPrefab: {fileID: 6521945633980296980, guid: e53c980aac40f714e8037076227eeeec,
     type: 3}
+  projectileBulletPrefab: {fileID: 4886525554623563067, guid: cb583049c058cde41899dff94e348642,
+    type: 3}
   cam: {fileID: 1488053957094389952}
+  playerController: {fileID: 8997055070651253307}
 --- !u!114 &5345974477687618155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,7 +905,10 @@ MonoBehaviour:
   itemGameObject: {fileID: 6141460071634955227}
   bulletImpactPrefab: {fileID: 6521945633980296980, guid: e53c980aac40f714e8037076227eeeec,
     type: 3}
+  projectileBulletPrefab: {fileID: 4886525554623563067, guid: cb583049c058cde41899dff94e348642,
+    type: 3}
   cam: {fileID: 1488053957094389952}
+  playerController: {fileID: 8997055070651253307}
 --- !u!114 &2675163236868231600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -971,6 +982,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
