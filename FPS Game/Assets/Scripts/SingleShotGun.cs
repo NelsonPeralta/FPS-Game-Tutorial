@@ -29,7 +29,7 @@ public class SingleShotGun : Gun
 			//hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
 			//PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
 		}
-            PV.RPC("RPC_Shoot_Projectile", RpcTarget.All);
+            PV.RPC("RPC_Shoot_Projectile", RpcTarget.All, gameObject.transform.position, gameObject.transform.rotation);
         //RPC_Shoot_Projectile();
 	}
 
@@ -46,13 +46,13 @@ public class SingleShotGun : Gun
 	}
 
     [PunRPC]
-    void RPC_Shoot_Projectile()
+    void RPC_Shoot_Projectile(Vector3 pos, Quaternion quat)
     {
         Debug.Log("Spawning Projectile Bullet");
         GameObject bullet = playerController.BulletPool.SpawnPooledGameObject();
 
-        bullet.transform.position = gameObject.transform.position;
-        bullet.transform.rotation = gameObject.transform.rotation;
+        bullet.transform.position = pos;
+        bullet.transform.rotation = quat;
         bullet.SetActive(true);
     }
 }

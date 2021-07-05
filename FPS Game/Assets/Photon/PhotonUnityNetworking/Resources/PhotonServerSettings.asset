@@ -36,6 +36,7 @@ MonoBehaviour:
   - RPC_Shoot
   - RPC_TakeDamage
   - RPC_Shoot_Projectile
+  - Move
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

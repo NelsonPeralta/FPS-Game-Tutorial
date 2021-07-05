@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
+public class PlayerController : MonoBehaviourPun, IDamageable/*, IPunObservable*/
 {
 	[SerializeField] Image healthbarImage;
 	[SerializeField] GameObject ui;
@@ -66,8 +66,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 			return;
 
 		Look();
-		Move();
-		Jump();
+        Move();
+
+        //PV.RPC("Move", RpcTarget.All);
+        Jump();
 
 		for(int i = 0; i < items.Length; i++)
 		{
@@ -161,13 +163,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 		}
 	}
 
-	public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-	{
-		if(!PV.IsMine && targetPlayer == PV.Owner)
-		{
-			EquipItem((int)changedProps["itemIndex"]);
-		}
-	}
+	//public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+	//{
+	//	if(!PV.IsMine && targetPlayer == PV.Owner)
+	//	{
+	//		EquipItem((int)changedProps["itemIndex"]);
+	//	}
+	//}
 
 	public void SetGroundedState(bool _grounded)
 	{
@@ -207,4 +209,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 	{
 		playerManager.Die();
 	}
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            Debug.Log("Writing");
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+        }else if (stream.IsReading)
+        {
+            Debug.Log("In Reading: " + stream.ReceiveNext());
+            transform.position = (Vector3) stream.ReceiveNext();
+            transform.rotation = (Quaternion)stream.ReceiveNext();
+        }
+    }
 }

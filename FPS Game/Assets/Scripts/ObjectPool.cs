@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
+    public static ObjectPool gameObjectPoolInstance;
     public List<GameObject> pooledObject = new List<GameObject>();
     public GameObject objectPrefab;
     public int amountToPool;
+
+    private void Awake()
+    {
+        if (gameObjectPoolInstance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+        gameObjectPoolInstance = this;
+    }
 
     private void Start()
     {
